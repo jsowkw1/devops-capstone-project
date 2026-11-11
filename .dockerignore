@@ -1,0 +1,10 @@
+.git
+.github
+tests
+outputs
+deploy
+tekton
+__pycache__
+*.pyc
+.coverage
+venv

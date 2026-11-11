@@ -1,0 +1,143 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-clone-simple
+spec:
+  description: Clones the application source code into the workspace
+  workspaces:
+    - name: output
+  params:
+    - name: url
+      type: string
+    - name: revision
+      type: string
+      default: main
+  steps:
+    - name: clone
+      image: alpine/git:2.43.0
+      workingDir: $(workspaces.output.path)
+      script: |
+        #!/bin/sh
+        set -e
+        rm -rf ./* ./.[!.]* 2>/dev/null || true
+        git clone --depth 1 --branch $(params.revision) $(params.url) .
+        echo "Cloned $(params.url) at $(git rev-parse --short HEAD)"
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: flake8
+spec:
+  description: Lints the Python source code with flake8
+  workspaces:
+    - name: source
+  params:
+    - name: image
+      type: string
+      default: python:3.9-slim
+    - name: args
+      type: array
+      default: ["--count", "--max-complexity=10", "--max-line-length=127", "--statistics"]
+  steps:
+    - name: lint
+      image: $(params.image)
+      workingDir: $(workspaces.source.path)
+      script: |
+        #!/bin/bash
+        set -e
+        python -m pip install --quiet --upgrade pip wheel
+        pip install --quiet -r requirements.txt
+        flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 service $@
+      args: ["$(params.args[*])"]
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: nose
+spec:
+  description: Runs the unit tests using nosetests
+  workspaces:
+    - name: source
+  params:
+    - name: args
+      type: string
+      default: "-v"
+    - name: database_uri
+      type: string
+      default: "sqlite:///test.db"
+  steps:
+    - name: nosetests
+      image: python:3.9-slim
+      workingDir: $(workspaces.source.path)
+      env:
+        - name: DATABASE_URI
+          value: $(params.database_uri)
+      script: |
+        #!/bin/bash
+        set -e
+        python -m pip install --quiet --upgrade pip wheel
+        pip install --quiet -r requirements.txt
+        nosetests $(params.args)
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-image
+spec:
+  description: Builds the Docker image and loads it into the cluster
+  workspaces:
+    - name: source
+  params:
+    - name: IMAGE
+      type: string
+  steps:
+    - name: build
+      image: docker:27-cli
+      workingDir: $(workspaces.source.path)
+      env:
+        - name: DOCKER_HOST
+          value: unix:///var/run/docker.sock
+      script: |
+        #!/bin/sh
+        set -e
+        docker build -t $(params.IMAGE) .
+        docker image ls $(params.IMAGE)
+      volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: deploy-image
+spec:
+  description: Deploys the image to Kubernetes using the manifests in deploy/
+  workspaces:
+    - name: source
+  params:
+    - name: IMAGE
+      type: string
+  steps:
+    - name: deploy
+      image: bitnami/kubectl:1.31
+      workingDir: $(workspaces.source.path)
+      script: |
+        #!/bin/bash
+        set -e
+        sed -i "s|IMAGE_NAME_HERE|$(params.IMAGE)|g" deploy/deployment.yaml
+        kubectl apply -f deploy/postgresql.yaml
+        kubectl apply -f deploy/deployment.yaml
+        kubectl apply -f deploy/service.yaml
+        kubectl rollout restart deployment/accounts
+        kubectl rollout status deployment/accounts --timeout=180s
+        kubectl get all -l app=accounts

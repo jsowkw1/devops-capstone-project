@@ -1,0 +1,2 @@
+FLASK_APP=service:app
+FLASK_RUN_PORT=8000
