@@ -1,0 +1,3 @@
+$ docker images accounts
+REPOSITORY   TAG    IMAGE ID       CREATED          SIZE
+accounts     1      b94487b6aa24   9 minutes ago    313MB

@@ -1,0 +1,9 @@
+$ curl -i -X DELETE http://127.0.0.1:5000/accounts/1
+
+HTTP/1.1 204 NO CONTENT
+Server: Werkzeug/2.1.2 Python/3.9.25
+Date: Wed, 11 Nov 2026 09:41:48 GMT
+Content-Type: text/html; charset=utf-8
+Connection: close
+
+

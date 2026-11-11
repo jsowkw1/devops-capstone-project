@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: cd-pipeline-run-
+spec:
+  pipelineRef:
+    name: cd-pipeline
+  serviceAccountName: pipeline
+  podTemplate:
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+  params:
+    - name: repo-url
+      value: https://github.com/jsowkw1/devops-capstone-project.git
+    - name: branch
+      value: main
+    - name: build-image
+      value: localhost:30500/accounts:latest
+  workspaces:
+    - name: pipeline-workspace
+      persistentVolumeClaim:
+        claimName: pipelinerun-pvc

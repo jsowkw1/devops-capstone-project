@@ -1,0 +1,358 @@
+GitHub Actions workflow run log (CI Build, run 42996707401)
+
+Workflow: CI Build   Repository: jsowkw1/devops-capstone-project   Branch: main
+Run: https://github.com/jsowkw1/devops-capstone-project/actions/runs/42996707401/job/130442467875
+Job: build   Status: completed   Conclusion: SUCCESS
+Started: 2026-11-11T09:37:16Z   Completed: 2026-11-11T09:38:00Z
+
+JOBS / STEPS
+  ✓  1. Set up job                               success
+  ✓  2. Initialize containers                    success
+  ✓  3. Checkout                                 success
+  ✓  4. Install dependencies                     success
+  ✓  5. Lint with flake8                         success
+  ✓  6. Run unit tests with nose                 success
+  ✓ 11. Post Checkout                            success
+  ✓ 12. Stop containers                          success
+  ✓ 13. Complete job                             success
+
+==============================================================================
+FULL STEP LOGS (dependency download lines condensed)
+==============================================================================
+Current runner version: '2.338.2'
+##[group]Runner Image Provisioner
+Hosted Compute Agent
+Version: 20261028.624
+Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+Build Date: 2026-10-28T21:51:42Z
+Worker ID: {169e75d3-ebb4-441c-9803-9047fd1a3f99}
+Region: southcentralus
+Cloud: Azure
+##[endgroup]
+##[group]Operating System
+Ubuntu
+26.04.1
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-26.04
+Version: 20261101.186.1
+Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261101.186/images/ubuntu/Ubuntu2604-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261101.186
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Contents: read
+Metadata: read
+Packages: read
+##[endgroup]
+Secret source: Actions
+Cache mode: write
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'actions/checkout@v3' (SHA:a37ce9120846195fa4ece8f58b268e6043cb2f26)
+Complete job name: build
+##[group]Checking docker version
+##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+'1.54'
+Docker daemon API version: '1.54'
+##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+'1.54'
+Docker client API version: '1.54'
+##[endgroup]
+##[group]Clean up resources from previous jobs
+##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=7509b5"
+##[command]/usr/bin/docker network prune --force --filter "label=7509b5"
+##[endgroup]
+##[group]Create local container network
+##[command]/usr/bin/docker network create --label 7509b5 github_network_602ac95d179843daacca787fac4acdfc
+2df04172b339c416beef7bfe8c296a4c64a054159431480327be71261891af52
+##[endgroup]
+##[group]Starting job container
+##[command]/usr/bin/docker pull python:3.9-slim
+3.9-slim: Pulling from library/python
+ea56f685404a: Pulling fs layer
+38513bd72563: Pulling fs layer
+b3ec39b36ae8: Pulling fs layer
+fc7443084902: Pulling fs layer
+ea56f685404a: Download complete
+b3ec39b36ae8: Download complete
+fc7443084902: Download complete
+a5e5b1b19090: Download complete
+38513bd72563: Download complete
+967a6079ce08: Download complete
+38513bd72563: Pull complete
+b3ec39b36ae8: Pull complete
+ea56f685404a: Pull complete
+fc7443084902: Pull complete
+Digest: sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+Status: Downloaded newer image for python:3.9-slim
+docker.io/library/python:3.9-slim
+##[command]/usr/bin/docker create --name b38ec5c7e836438ca411e6721b9c6da3_python39slim_790325 --label 7509b5 --workdir /__w/devops-capstone-project/devops-capstone-project --network github_network_602ac95d179843daacca787fac4acdfc  -e "HOME=/github/home" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work":"/__w" -v "/home/runner/actions-runner/cached/2.338.2/externals":"/__e":ro -v "/home/runner/work/_temp":"/__w/_temp" -v "/home/runner/work/_actions":"/__w/_actions" -v "/opt/hostedtoolcache":"/__t" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" --entrypoint "tail" python:3.9-slim "-f" "/dev/null"
+8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07
+##[command]/usr/bin/docker start 8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07
+8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07
+##[command]/usr/bin/docker ps --all --filter id=8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07 Up Less than a second
+##[command]/usr/bin/docker inspect --format "{{range .Config.Env}}{{println .}}{{end}}" 8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07
+HOME=/github/home
+GITHUB_ACTIONS=true
+CI=true
+PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+LANG=C.UTF-8
+GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568
+PYTHON_VERSION=3.9.25
+PYTHON_SHA256=00e07d7c0f2f0cc002432d1ee84d2a40dae404a99303e3f97701c10966c91834
+##[endgroup]
+##[group]Starting postgres service container
+##[command]/usr/bin/docker pull postgres:alpine
+alpine: Pulling from library/postgres
+21a876ea75ef: Pulling fs layer
+881fc932939e: Pulling fs layer
+84314b29d421: Pulling fs layer
+269f116f693d: Pulling fs layer
+f9a5f8f89c06: Pulling fs layer
+ef1860e97cef: Pulling fs layer
+08007d924193: Pulling fs layer
+8f865016089d: Pulling fs layer
+63677b2e422d: Pulling fs layer
+21a876ea75ef: Download complete
+ef1860e97cef: Download complete
+63677b2e422d: Download complete
+f9a5f8f89c06: Download complete
+8f865016089d: Download complete
+84314b29d421: Download complete
+08007d924193: Download complete
+881fc932939e: Download complete
+7d5727783cd4: Download complete
+f10676ecb088: Download complete
+f9a5f8f89c06: Pull complete
+881fc932939e: Pull complete
+ef1860e97cef: Pull complete
+63677b2e422d: Pull complete
+269f116f693d: Download complete
+21a876ea75ef: Pull complete
+8f865016089d: Pull complete
+84314b29d421: Pull complete
+08007d924193: Pull complete
+269f116f693d: Pull complete
+Digest: sha256:123b17998ccaf47e53b502e8c6a1e79afd8f579c6f3eec83c563da026f957395
+Status: Downloaded newer image for postgres:alpine
+docker.io/library/postgres:alpine
+##[command]/usr/bin/docker create --name aee777bc392843f8a38ed68982f129a3_postgresalpine_8d3d06 --label 7509b5 --network github_network_602ac95d179843daacca787fac4acdfc --network-alias postgres -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_PASSWORD=pgs3cr3t" -e "POSTGRES_DB=testdb" -e GITHUB_ACTIONS=true -e CI=true postgres:alpine
+2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+##[command]/usr/bin/docker start 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+##[command]/usr/bin/docker ps --all --filter id=2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae Up Less than a second (health: starting)
+##[command]/usr/bin/docker port 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+5432/tcp -> 0.0.0.0:5432
+5432/tcp -> [::]:5432
+##[endgroup]
+##[group]Waiting for all services to be ready
+##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+starting
+postgres service is starting, waiting 2 seconds before checking again.
+##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+starting
+postgres service is starting, waiting 4 seconds before checking again.
+##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+starting
+postgres service is starting, waiting 7 seconds before checking again.
+##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+healthy
+postgres service is healthy.
+##[endgroup]
+##[group]Run actions/checkout@v3
+with:
+  repository: jsowkw1/devops-capstone-project
+  token: ***
+  ssh-strict: true
+  persist-credentials: true
+  clean: true
+  sparse-checkout-cone-mode: true
+  fetch-depth: 1
+  fetch-tags: false
+  lfs: false
+  submodules: false
+  set-safe-directory: true
+  allow-unsafe-pr-checkout: false
+##[endgroup]
+##[command]/usr/bin/docker exec  8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07 sh -c "cat /etc/*release | grep ^ID"
+(node:15) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Syncing repository: jsowkw1/devops-capstone-project
+##[group]Getting Git version info
+Working directory is '/__w/devops-capstone-project/devops-capstone-project'
+##[endgroup]
+Deleting the contents of '/__w/devops-capstone-project/devops-capstone-project'
+The repository will be downloaded using the GitHub REST API
+To create a local Git repository instead, add Git 2.18 or higher to the PATH
+  ... (1 dependency download lines omitted) ...
+(node:15) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Writing archive to disk
+Extracting the archive
+[command]/usr/bin/tar xz -C /__w/devops-capstone-project/devops-capstone-project/525fc232-f169-436e-963a-53d06497076c -f /__w/devops-capstone-project/devops-capstone-project/525fc232-f169-436e-963a-53d06497076c.tar.gz
+Resolved version jsowkw1-devops-capstone-project-148e258
+##[group]Run python -m pip install --upgrade pip
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+shell: sh -e {0}
+##[endgroup]
+WARNING: The directory '/github/home/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+  ... (4 dependency download lines omitted) ...
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 23.0.1
+    Uninstalling pip-23.0.1:
+      Successfully uninstalled pip-23.0.1
+Successfully installed pip-26.0.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+WARNING: The directory '/github/home/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+  ... (176 dependency download lines omitted) ...
+Installing collected packages: nose, honcho, flask-talisman, zipp, wrapt, Werkzeug, urllib3, tzdata, typing-extensions, tomlkit, tomli, Six, python-dotenv, PySocks, Pygments, pyflakes, pycodestyle, psycopg2-binary, platformdirs, pathspec, mypy-extensions, mdurl, mccabe, MarkupSafe, lazy-object-proxy, itsdangerous, isort, idna, gunicorn, greenlet, dill, defusedxml, coverage, colorama, click, charset-normalizer, certifi, SQLAlchemy, requests, pinocchio, multidict, markdown-it-py, Jinja2, importlib-metadata, flake8, Faker, black, astroid, rich, requests-toolbelt, pylint, Flask, factory-boy, httpie, Flask-SQLAlchemy, flask-cors
+
+Successfully installed Faker-37.12.0 Flask-2.1.2 Flask-SQLAlchemy-2.5.1 Jinja2-3.1.6 MarkupSafe-3.0.4 PySocks-1.7.1 Pygments-2.21.0 SQLAlchemy-1.4.46 Six-1.17.0 Werkzeug-2.1.2 astroid-2.13.5 black-22.12.0 certifi-2026.10.23 charset-normalizer-3.5.2 click-8.1.8 colorama-0.4.6 coverage-7.0.5 defusedxml-0.7.1 dill-0.4.1 factory-boy-3.2.1 flake8-6.0.0 flask-cors-3.0.10 flask-talisman-1.0.0 greenlet-3.2.5 gunicorn-20.1.0 honcho-1.1.0 httpie-3.2.1 idna-3.20 importlib-metadata-8.7.1 isort-5.13.2 itsdangerous-2.2.0 lazy-object-proxy-1.12.0 markdown-it-py-3.0.0 mccabe-0.7.0 mdurl-0.1.2 multidict-6.7.1 mypy-extensions-1.1.0 nose-1.3.7 pathspec-1.1.1 pinocchio-0.4.3 platformdirs-4.4.0 psycopg2-binary-2.9.5 pycodestyle-2.10.0 pyflakes-3.0.1 pylint-2.15.10 python-dotenv-0.21.0 requests-2.32.5 requests-toolbelt-1.0.0 rich-15.0.0 tomli-2.5.0 tomlkit-0.15.2 typing-extensions-4.16.0 tzdata-2026.6 urllib3-2.6.3 wrapt-1.17.3 zipp-3.23.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+##[group]Run flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
+flake8 service --count --select=E9,F63,F7,F82 --show-source --statistics
+flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
+shell: sh -e {0}
+##[endgroup]
+0
+0
+##[group]Run nosetests
+nosetests
+shell: sh -e {0}
+env:
+  DATABASE_URI: ***postgres:5432/testdb
+##[endgroup]
+
+Test Cases for Account Model
+- It should Create an account and add it to the database
+- It should Create an Account and assert that it exists
+- It should Delete an account from the database
+- It should Deserialize an account
+- It should not Deserialize an account with a KeyError
+- It should not Deserialize an account with a TypeError
+- It should Deserialize an account and default date_joined
+- It should Find an Account by name
+- It should List all Accounts in the database
+- It should Read an account
+- It should print a readable representation
+- It should Serialize an account
+- It should Update an account
+- It should not Update an account with no id
+
+Account Service Tests
+- It should not Create an Account when sending the wrong data
+- It should return a CORS header
+- It should Create a new Account
+- It should Delete an Account
+- It should Read a single Account
+- It should Get a list of Accounts
+- It should not Read an Account that is not found
+- It should be healthy
+- It should get 200_OK from the Home Page
+- It should not allow an illegal method call
+- It should return security headers
+- It should not Create an Account when sending the wrong media type
+- It should Update an existing Account
+- It should not Update an Account that is not found
+
+Name                               Stmts   Miss  Cover   Missing
+----------------------------------------------------------------
+service/__init__.py                   22      3    86%   40-43
+service/common/__init__.py             0      0   100%
+service/common/cli_commands.py         7      3    57%   19-21
+service/common/error_handlers.py      31      3    90%   77-79
+service/common/log_handlers.py        10      1    90%   21
+service/common/status.py              45      0   100%
+service/config.py                      7      0   100%
+service/models.py                     69      1    99%   32
+service/routes.py                     58      0   100%
+----------------------------------------------------------------
+TOTAL                                249     11    96%
+----------------------------------------------------------------------
+Ran 28 tests in 0.745s
+
+OK
+
+Post job cleanup.
+##[command]/usr/bin/docker exec  8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07 sh -c "cat /etc/*release | grep ^ID"
+(node:91) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Stop and remove container: b38ec5c7e836438ca411e6721b9c6da3_python39slim_790325
+##[command]/usr/bin/docker rm --force 8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07
+8f27878cc6e652d294f09f871794913c90d7563465b6eae9ad63a6a55b258c07
+Print service container logs: aee777bc392843f8a38ed68982f129a3_postgresalpine_8d3d06
+##[command]/usr/bin/docker logs --details 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+ sh: locale: not found
+ The files belonging to this database system will be owned by user "postgres".
+ 2026-11-11 09:37:25.126 UTC [40] WARNING:  no usable system locales were found
+ initdb: warning: enabling "trust" authentication for local connections
+ initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+ 2026-11-11 09:37:25.982 UTC [1] LOG:  starting PostgreSQL 18.6 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+ 2026-11-11 09:37:25.982 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+ 2026-11-11 09:37:25.982 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+ 2026-11-11 09:37:25.983 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+ 2026-11-11 09:37:25.987 UTC [68] LOG:  database system was shut down at 2026-11-11 09:37:25 UTC
+ 2026-11-11 09:37:25.991 UTC [1] LOG:  database system is ready to accept connections
+ 2026-11-11 09:37:34.666 UTC [78] FATAL:  role "root" does not exist
+ 2026-11-11 09:37:44.710 UTC [85] FATAL:  role "root" does not exist
+ 2026-11-11 09:37:54.752 UTC [92] FATAL:  role "root" does not exist
+ This user must also own the server process.
+ 
+ The database cluster will be initialized with locale "en_US.utf8".
+ The default database encoding has accordingly been set to "UTF8".
+ The default text search configuration will be set to "english".
+ 
+ Data page checksums are enabled.
+ 
+ fixing permissions on existing directory /var/lib/postgresql/18/docker ... ok
+ creating subdirectories ... ok
+ selecting dynamic shared memory implementation ... posix
+ selecting default "max_connections" ... 100
+ selecting default "shared_buffers" ... 128MB
+ selecting default time zone ... UTC
+ creating configuration files ... ok
+ running bootstrap script ... ok
+ performing post-bootstrap initialization ... ok
+ syncing data to disk ... ok
+ 
+ 
+ Success. You can now start the database server using:
+ 
+     pg_ctl -D /var/lib/postgresql/18/docker -l logfile start
+ 
+ waiting for server to start....2026-11-11 09:37:25.697 UTC [46] LOG:  starting PostgreSQL 18.6 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+ 2026-11-11 09:37:25.698 UTC [46] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+ 2026-11-11 09:37:25.702 UTC [52] LOG:  database system was shut down at 2026-11-11 09:37:25 UTC
+ 2026-11-11 09:37:25.705 UTC [46] LOG:  database system is ready to accept connections
+  done
+ server started
+ CREATE DATABASE
+ 
+ 
+ /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+ 
+ waiting for server to shut down....2026-11-11 09:37:25.859 UTC [46] LOG:  received fast shutdown request
+ 2026-11-11 09:37:25.859 UTC [46] LOG:  aborting any active transactions
+ 2026-11-11 09:37:25.863 UTC [46] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+ 2026-11-11 09:37:25.864 UTC [50] LOG:  shutting down
+ 2026-11-11 09:37:25.864 UTC [50] LOG:  checkpoint starting: shutdown immediate
+ 2026-11-11 09:37:25.881 UTC [50] LOG:  checkpoint complete: wrote 943 buffers (5.8%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.014 s, sync=0.002 s, total=0.017 s; sync files=303, longest=0.001 s, average=0.001 s; distance=4362 kB, estimate=4362 kB; lsn=0/1BA8860, redo lsn=0/1BA8860
+ 2026-11-11 09:37:25.894 UTC [46] LOG:  database system is shut down
+  done
+ server stopped
+ 
+ PostgreSQL init process complete; ready for start up.
+ 
+Stop and remove container: aee777bc392843f8a38ed68982f129a3_postgresalpine_8d3d06
+##[command]/usr/bin/docker rm --force 2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+2988960b42d43242940793f2ef32cf0d9d0f216df3fa002edfbf7a94142a69ae
+Remove container network: github_network_602ac95d179843daacca787fac4acdfc
+##[command]/usr/bin/docker network rm github_network_602ac95d179843daacca787fac4acdfc
+github_network_602ac95d179843daacca787fac4acdfc
+Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,11 @@
+$ curl -i -X GET http://127.0.0.1:5000/accounts
+
+HTTP/1.1 200 OK
+Server: Werkzeug/2.1.2 Python/3.9.25
+Date: Wed, 11 Nov 2026 09:41:48 GMT
+Content-Type: application/json
+Content-Length: 263
+Connection: close
+
+[{"address":"123 Main St.","date_joined":"2026-11-11","email":"john@doe.com","id":1,"name":"John Doe","phone_number":"555-1212"},{"address":"45 Oak Avenue","date_joined":"2026-11-11","email":"jane@smith.com","id":2,"name":"Jane Smith","phone_number":"555-3434"}]
+

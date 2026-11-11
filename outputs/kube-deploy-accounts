@@ -1,0 +1,36 @@
+$ kubectl get all -l app=accounts
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/accounts-5cb96d5f76-2bmz7   1/1     Running   0          42s
+pod/accounts-5cb96d5f76-g7vqm   1/1     Running   0          21s
+pod/accounts-5cb96d5f76-g896r   1/1     Running   0          31s
+
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+service/accounts   ClusterIP   10.43.49.62   <none>        8080/TCP   5m8s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/accounts   3/3     3            3           5m8s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/accounts-5cb96d5f76   3         3         3       42s
+replicaset.apps/accounts-75f79d644b   0         0         0       5m8s
+
+$ kubectl get deployments,pods,replicasets,services -o wide
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES                         SELECTOR
+deployment.apps/accounts     3/3     3            3           5m9s   accounts     docker.io/library/accounts:1   app=accounts
+deployment.apps/postgresql   1/1     1            1           5m9s   postgresql   postgres:15-alpine             app=postgresql
+
+NAME                              READY   STATUS    RESTARTS   AGE    IP           NODE           NOMINATED NODE   READINESS GATES
+pod/accounts-5cb96d5f76-2bmz7     1/1     Running   0          43s    10.42.0.9    655f93de5fbb   <none>           <none>
+pod/accounts-5cb96d5f76-g7vqm     1/1     Running   0          22s    10.42.0.11   655f93de5fbb   <none>           <none>
+pod/accounts-5cb96d5f76-g896r     1/1     Running   0          32s    10.42.0.10   655f93de5fbb   <none>           <none>
+pod/postgresql-6688bcdc6d-c45ns   1/1     Running   0          5m9s   10.42.0.5    655f93de5fbb   <none>           <none>
+
+NAME                                    DESIRED   CURRENT   READY   AGE    CONTAINERS   IMAGES                         SELECTOR
+replicaset.apps/accounts-5cb96d5f76     3         3         3       43s    accounts     docker.io/library/accounts:1   app=accounts,pod-template-hash=5cb96d5f76
+replicaset.apps/accounts-75f79d644b     0         0         0       5m9s   accounts     docker.io/library/accounts:1   app=accounts,pod-template-hash=75f79d644b
+replicaset.apps/postgresql-6688bcdc6d   1         1         1       5m9s   postgresql   postgres:15-alpine             app=postgresql,pod-template-hash=6688bcdc6d
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+service/accounts     ClusterIP   10.43.49.62     <none>        8080/TCP   5m9s    app=accounts
+service/kubernetes   ClusterIP   10.43.0.1       <none>        443/TCP    7m31s   <none>
+service/postgresql   ClusterIP   10.43.231.124   <none>        5432/TCP   5m9s    app=postgresql
